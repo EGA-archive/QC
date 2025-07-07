@@ -10,6 +10,8 @@ Computes quality metrics using tools like Qualimap, Picard, samtools, and read_d
 Calculates per-window statistics (MAPQ, coverage) using custom Python scripts.
 Formats the results to be compatible with MultiQC, using a customized version of MultiQC included in this repository.
 
-BAM_finalize_2.py: converts the results into a MultiQC-compatible format.
+BAM_finalize_2.py: 
+
+Converts the results into a MultiQC-compatible format.
 
 Finally, we generate a customized MultiQC report, using a patched version of MultiQC tailored to our output. You’ll also find this modified version included in this repository.
