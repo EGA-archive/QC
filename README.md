@@ -1,6 +1,6 @@
 # BAM/CRAM QC
 
-The EGA currently stores nearly 3 million BAM and CRAM files — and this number keeps growing thanks to the collective efforts of the scientific community. To improve the quality reports we generate for each of these files, we’ve developed a set of pipelines that automates the use of several bioinformatics tools for comprehensive quality assessment.
+The EGA currently stores nearly 3 million BAM and CRAM files — and this number keeps growing thanks to the collective efforts of the scientific community. To improve the quality reports we generate for each of these files, we’ve developed a set of pipelines that automate the use of several bioinformatics tools for comprehensive quality assessment. Here they are, in case you’d like to use them as well.
 
 BAM_pipeline_2.py:
 
