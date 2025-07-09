@@ -9,27 +9,27 @@ import statistics
 from collections import defaultdict, Counter
 
 def run_command(command):
-    print(f"Ejecutando: {command}")
+    print(f"[INFO] Running command: {command}")
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode != 0:
-        print(f"Error ejecutando el comando: {command}")
+        print(f"Error executing the line: {command}")
         print(result.stderr)
     else:
         print(result.stdout)
 
 def convert_cram_to_bam(cram_path):
-    bam_path = cram_path.replace(".cram", ".converted.bam")
-    print(f"🌀 Convirtiendo {cram_path} a BAM: {bam_path}")
+    bam_path = cram_path.replace(".cram", ".bam")
+    print(f"Converting {cram_path} to BAM: {bam_path}")
     cmd = f"samtools view -b -o {bam_path} {cram_path}"
     result = subprocess.run(cmd, shell=True)
     if result.returncode != 0:
-        raise RuntimeError(f"❌ Error al convertir {cram_path} a BAM.")
+        raise RuntimeError(f"Error converting {cram_path} to BAM.")
     return bam_path
 
 def create_bam_index(bam_path):
     bai_path = bam_path + ".bai"
     if not os.path.exists(bai_path):
-        print(f"🔧 No se encontró {os.path.basename(bai_path)}. Creando índice con pysam.index()…")
+        print(f" {os.path.basename(bai_path)} was not found. Creating index with pysam.index()…")
         subprocess.run(["samtools", "index", bam_path], check=True)
 
 
@@ -75,109 +75,6 @@ def parse_bam_header(bam_file, output_file):
         f.write(f"Sample\t{data['Sample']}\n")
         f.write(f"Tools\t{' | '.join(data['Tools'])}\n")
     print(f"Header info saved to {output_file}")
-def median_from_counter(counter):
-    total = sum(counter.values())
-    if total == 0:
-        return 0.0
-    mid = total // 2
-    acc = 0
-    sorted_items = sorted(counter.items())
-    for i, (value, count) in enumerate(sorted_items):
-        acc += count
-        if acc > mid:
-            return float(value)
-        elif acc == mid and total % 2 == 0:
-            for j in range(i + 1, len(sorted_items)):
-                return (value + sorted_items[j][0]) / 2.0
-            return float(value)
-    return 0.0
-def calculate_mapq_median(bam_file, window_size, output_file, alias_json_path="chrnames.json"):
-    with open(alias_json_path, "r") as f:
-        alias_map = json.load(f)
-    create_bam_index(bam_file)
-    bam = pysam.AlignmentFile(bam_file, "rb")
-    mapq_by_global_window = defaultdict(list)
-    ref_id_to_name = {}
-    cumulative_offsets = {}
-    ref_name_to_length = {}
-    offset = 0
-    matched_any = False
-    for i in range(bam.nreferences):
-        original_name = bam.get_reference_name(i)
-        canonical = alias_map.get(original_name)
-        if canonical:
-            matched_any = True
-            length = bam.get_reference_length(original_name)
-            ref_id_to_name[i] = canonical
-            ref_name_to_length[canonical] = length
-            if canonical not in cumulative_offsets:
-                cumulative_offsets[canonical] = offset
-                offset += length
-    if not matched_any:
-        print("No se encontraron nombres válidos en el alias. Usando fallback forzado.")
-        canonical_names = [f"chr{i}" for i in range(1, 23)] + ["chrX", "chrY", "chrM"]
-        for i, canonical in enumerate(canonical_names):
-            if i >= bam.nreferences:
-                print(f"Faltan contigs para cubrir hasta {canonical}")
-                break
-            length = bam.get_reference_length(i)
-            ref_id_to_name[i] = canonical
-            ref_name_to_length[canonical] = length
-            cumulative_offsets[canonical] = offset
-            offset += length
-    valid_ref_ids = set(ref_id_to_name.keys())
-    for read in bam:
-        if read.reference_id not in valid_ref_ids or read.reference_start < 0:
-            continue
-        chrom = ref_id_to_name[read.reference_id]
-        global_pos = cumulative_offsets[chrom] + read.reference_start
-        window_start = (global_pos // window_size) * window_size
-        mapq_by_global_window[window_start].append(read.mapping_quality)
-    bam.close()
-    total_length = sum(ref_name_to_length.values())
-    num_windows = math.ceil(total_length / window_size)
-    offset_to_chrom = sorted(cumulative_offsets.items(), key=lambda x: x[1])
-    def get_chrom_for_pos(global_pos):
-        for i in range(len(offset_to_chrom) - 1):
-            chrom, start = offset_to_chrom[i]
-            next_chrom, next_start = offset_to_chrom[i + 1]
-            if start <= global_pos < next_start:
-                return chrom
-        return offset_to_chrom[-1][0]
-    result = []
-    for i in range(num_windows):
-        global_start = i * window_size
-        chrom = get_chrom_for_pos(global_start)
-        values = mapq_by_global_window.get(global_start, [])
-        median_mapq = round(statistics.median(values), 2) if values else 0.0
-        result.append([chrom, global_start, median_mapq])
-    chroms_included = {entry[0] for entry in result}
-    chrM_aliases = [k for k, v in alias_map.items() if v == "chrM"]
-    mt_offset = None
-    if "chrM" not in chroms_included:
-        for alias in chrM_aliases:
-            if alias in cumulative_offsets:
-                mt_offset = cumulative_offsets[alias]
-                break
-    if mt_offset is not None:
-        mapqs = []
-        with pysam.AlignmentFile(bam_file, "rb") as bam_mt:
-            for alias in chrM_aliases:
-                if alias in bam_mt.references:
-                    for r in bam_mt.fetch(alias):
-                        if not r.is_unmapped:
-                            mapqs.append(r.mapping_quality)
-                    break
-        if mapqs:
-            median_mapq = round(statistics.median(mapqs), 2)
-            result.append(["chrM", mt_offset, median_mapq])
-            print(f":white_check_mark: chrM añadido con mediana MAPQ={median_mapq}")
-        else:
-            print(":warning: chrM sin lecturas mapeadas")
-    with open(output_file, "w") as f:
-        json.dump(result, f, separators=(",", ":"))
-    print(f"Mediana de MAPQ calculada y guardada en {output_file}")
-
 
 def calculate_stat_from_counter(counter, mode="mean"):
     values = []
@@ -213,7 +110,7 @@ def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_
                 offset += length
 
     if not matched_any:
-        print("⚠️ No se encontraron nombres válidos en el alias. Usando fallback.")
+        print("No valid names in the alias. Using fallback.")
         canonical_names = [f"chr{i}" for i in range(1, 23)] + ["chrX", "chrY", "chrM"]
         for i, canonical in enumerate(canonical_names):
             if i >= bam.nreferences:
@@ -273,14 +170,13 @@ def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_
         artificial_pos = num_windows * window_size
         chrM_stat = round(statistics.mean(chrM_coverages), 2) if mode == "mean" else round(statistics.median(chrM_coverages), 2)
         result.append(["chrM", artificial_pos, chrM_stat])
-        print(f":white_check_mark: chrM añadido con {mode} = {chrM_stat}")
     else:
-        print(":warning: chrM no tiene cobertura")
+        print(" [WARNING] chrM does not have a coverage")
 
     with open(output_file, "w") as f:
         json.dump(result, f, separators=(",", ":"))
 
-    print(f"✅ Resultado guardado en {output_file}")
+    print(f"[INFO] Result saved to {output_file}")
 
 def main():
     parser = argparse.ArgumentParser(description="Análisis de archivos BAM o CRAM con herramientas bioinformáticas.")
@@ -300,7 +196,7 @@ def main():
     elif input_path.endswith(".bam"):
         bam_file = input_path
     else:
-        raise ValueError("❌ El archivo de entrada debe ser .bam o .cram")
+        raise ValueError("Input file has to be BAM or CRAM)
 
     output_dir = os.path.join(os.path.dirname(bam_file), "bam_analysis_results")
     os.makedirs(output_dir, exist_ok=True)
@@ -314,10 +210,6 @@ def main():
     run_command(f"java -jar /bio-scratch/Aurora/BAM_report/definitivo/picard.jar  CollectAlignmentSummaryMetrics           R= {fasta_file}           I= {bam_file}          O=picard_output.txt")
     run_command(f"java -jar /bio-scratch/Aurora/BAM_report/definitivo/picard.jar QualityYieldMetrics I= {bam_file} O= collect_bases_metrics.txt")
     run_command(f"samtools view -H {bam_file} > header.txt")
-
-    window_mapq = 3_000_000
-    mapq_output_file = os.path.join(output_dir, f"mapq_median_{window_mapq // 1_000_000}Mb_complete.json")
-    calculate_mapq_median(bam_file, window_mapq, mapq_output_file, alias_json_path=alias_json)
 
     window_cov = 3_000_000
     cov_output_file = os.path.join(output_dir, f"coverage_median_{window_cov // 1_000_000}Mb_complete.json")
