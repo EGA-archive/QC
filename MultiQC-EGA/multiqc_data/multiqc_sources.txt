@@ -1,0 +1,2 @@
+Module	Section	Sample Name	Source
+RSeQC	read_distribution	read_distribution	C:\Users\SRENSONNET\work\GITHUB\bam_analysis_results\read_distribution.txt

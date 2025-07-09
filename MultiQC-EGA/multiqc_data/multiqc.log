@@ -1,0 +1,19 @@
+[2025-07-09 17:18:32,294] multiqc.core.version_check                         [WARNING]  MultiQC Version v1.30 now available!
+[2025-07-09 17:18:32,294] multiqc.core.file_search                           [INFO   ]  Search path: C:\Users\SRENSONNET\work\GITHUB\bam_analysis_results
+[2025-07-09 17:18:32,511] multiqc.modules.genomewide_coverage.genomewide_coverage [INFO   ]  preparing static files...
+[2025-07-09 17:18:32,511] multiqc.modules.genomewide_coverage.genomewide_coverage [INFO   ]  coverage_median_3Mb_complete.json...
+[2025-07-09 17:18:32,511] multiqc.modules.genomewide_coverage.genomewide_coverage [INFO   ]  Archivo encontrado: coverage_median_3Mb_complete.json
+[2025-07-09 17:18:32,511] multiqc.modules.genomewide_coverage.genomewide_coverage [INFO   ]  Parsed coverage_median data
+[2025-07-09 17:18:32,511] multiqc.modules.genomewide_coverage.genomewide_coverage [INFO   ]  C:\Users\SRENSONNET\work\BAM_QC\MultiQC-EGA\multiqc\modules\genomewide_coverage\assets\html\coverage.html
+[2025-07-09 17:18:32,532] multiqc.modules.genomewide_mapq.genomewide_mapq    [INFO   ]  preparing static files...
+[2025-07-09 17:18:32,532] multiqc.modules.genomewide_mapq.genomewide_mapq    [INFO   ]  mapq_median_3Mb_complete.json...
+[2025-07-09 17:18:32,532] multiqc.modules.genomewide_mapq.genomewide_mapq    [INFO   ]  Archivo encontrado: mapq_median_3Mb_complete.json
+[2025-07-09 17:18:32,532] multiqc.modules.genomewide_mapq.genomewide_mapq    [INFO   ]  Parsed mapq_median data
+[2025-07-09 17:18:32,532] multiqc.modules.genomewide_mapq.genomewide_mapq    [INFO   ]  C:\Users\SRENSONNET\work\BAM_QC\MultiQC-EGA\multiqc\modules\genomewide_mapq\assets\html\mapq.html
+[2025-07-09 17:18:32,794] multiqc.modules.custom_content.custom_content      [INFO   ]  genome_fraction_coverage: Found 1 samples (PlotType.LINE)
+[2025-07-09 17:18:32,844] multiqc.modules.custom_content.custom_content      [INFO   ]  homopolymer_indels: Found 1 samples (PlotType.BAR)
+[2025-07-09 17:18:32,864] multiqc.modules.custom_content.custom_content      [INFO   ]  insert_size_plot: Found 1 samples (PlotType.LINE)
+[2025-07-09 17:18:32,864] multiqc.modules.custom_content.custom_content      [INFO   ]  mapped_reads_clipping_profile: Found 1 samples (PlotType.LINE)
+[2025-07-09 17:18:32,880] multiqc.modules.custom_content.custom_content      [INFO   ]  mapped_reads_nucleotide_content: Found 1 samples (PlotType.LINE)
+[2025-07-09 17:18:32,885] multiqc.modules.custom_content.custom_content      [INFO   ]  mapping_quality_histogram: Found 1 samples (PlotType.LINE)
+[2025-07-09 17:18:32,930] multiqc.modules.rseqc.rseqc                        [INFO   ]  Found 1 read_distribution reports

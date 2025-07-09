@@ -1,0 +1,2 @@
+Sample	polyA	polyC	polyG	polyT	polyN	Non-poly
+homopolymer_indels	588884.0	137444.0	133213.0	616482.0	22.0	1140436.0

@@ -1,0 +1,50 @@
+<div class="chart-container bam">
+    <input type="radio" name="coverage-intervals-scroll" value="scroll-on" id="coverage-intervals-scroll-on" checked>
+    <input type="radio" name="coverage-intervals-scroll" value="scroll-off" id="coverage-intervals-scroll-off">
+    <div class="tabs">
+      <label for="coverage-intervals-scroll-on">scroll</label>
+      <label for="coverage-intervals-scroll-off">fit width</label>
+    </div>
+    <section value="scroll-off" id="coverage-intervals" class="wide" data-ifmissing="Missing data">
+      <div class="svg-container">
+        <svg></svg>
+      </div>
+    </section>
+    <section value="scroll-on" id="coverage-intervals-scroll" class="wide" data-ifmissing="Missing data">
+      <div class="svg-container scrollable">
+        <svg></svg>
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+    </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+  window.ega_curve_mo("#coverage-intervals svg", 
+  JSON.parse("{{ coverage_intervals }}"),
+  {
+    xAxis: "Position (bp)",
+    yAxis: "Coverage (X)",
+    title: "Median Coverage Across Reference",
+    showTitle: false,
+    showTooltip: true,
+    width:"auto",
+    expandX:"70px",
+    width:"auto",
+    expandX:"70px",
+    expandYOnZoom:2
+  });
+
+  window.ega_curve_mos("#coverage-intervals-scroll svg", 
+  JSON.parse("{{ coverage_intervals }}"),
+  {
+    xAxis: "Position (bp)",
+    yAxis: "Coverage (X)",
+    title: "Median Coverage Across Reference",
+    showTitle: false,
+    showTooltip: true,
+    width:"auto",
+    scrollRatio: 10,
+    expandX:"70px",
+    expandXOnZoom:0.25,
+  });
+</script>

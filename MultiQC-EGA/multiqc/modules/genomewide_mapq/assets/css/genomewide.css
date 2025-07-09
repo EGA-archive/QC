@@ -1,0 +1,326 @@
+#data, .chart-container {
+  width: 800px;
+  margin: 1em auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  /* Reset */
+  /* VCF */
+  /* For the Ts/Tv ration */
+}
+#data section, .chart-container section {
+  box-sizing: border-box;
+  width: 32%;
+  padding: 1ex;
+  margin-bottom: 1em;
+  box-shadow: 0 0 5px 0px #ccc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: transparent;
+  position: relative;
+  perspective: 1000px; /* 3D effect */
+}
+#data section h2, .chart-container section h2 {
+  margin-bottom: 1em;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: normal;
+}
+#data section svg, .chart-container section svg {
+  max-width: 100%;
+  position: relative;
+  transform: rotateY(0deg);
+  z-index: 2;
+  backface-visibility: hidden;
+  background-color: white;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+#data section svg.zoom, .chart-container section svg.zoom {
+  cursor: zoom-in;
+}
+#data section svg.zoom.grab, .chart-container section svg.zoom.grab {
+  cursor: move;
+}
+#data section.open svg, .chart-container section.open svg {
+  transform: rotateY(180deg);
+}
+#data section > div:not(.svg-container), .chart-container section > div:not(.svg-container) {
+  position: absolute;
+  top: 4em;
+  left: 1ex;
+  bottom: 2ex;
+  right: 1ex; /* 2ex-hack for bottom cuz I can't get the height right.*/
+  transform: rotateY(180deg);
+  z-index: 1;
+  overflow: auto;
+  padding: 0 1em;
+  backface-visibility: hidden;
+  background-color: white;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+#data section > div:not(.svg-container) p, .chart-container section > div:not(.svg-container) p {
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+#data section > div:not(.svg-container) img, .chart-container section > div:not(.svg-container) img {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+}
+#data section.open > div, .chart-container section.open > div {
+  transform: rotateY(0deg);
+}
+#data section .trigger, .chart-container section .trigger {
+  cursor: pointer;
+}
+#data section .trigger:after, .chart-container section .trigger:after {
+  content: "i";
+  position: absolute;
+  top: 1ex;
+  right: 1ex;
+  z-index: 100;
+  display: block;
+  text-align: center;
+  width: 1em;
+  padding: 0 0.2ex;
+  border-radius: 50%;
+  background: #7a7a7a;
+  color: white;
+  font-size: 80%;
+}
+#data section.open .trigger:after, .chart-container section.open .trigger:after {
+  content: "x";
+}
+#data section.no-data, .chart-container section.no-data {
+  position: relative;
+  transition: transform 0.8s;
+}
+#data section.no-data svg, .chart-container section.no-data svg {
+  background: white;
+}
+#data section.no-data::before, .chart-container section.no-data::before {
+  content: attr(data-ifmissing);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  transition: 0.8s;
+  color: #636363;
+  font-style: italic;
+  font-size: 80%;
+}
+#data section.no-data.open::before, .chart-container section.no-data.open::before {
+  opacity: 0;
+}
+#data .wide, .chart-container .wide {
+  width: 100%; /* height:250px; */
+}
+#data rect[height="0"], #data rect[width="0"], .chart-container rect[height="0"], .chart-container rect[width="0"] {
+  display: none;
+}
+#data text.no-data, .chart-container text.no-data {
+  font-size: 10px;
+  text-anchor: middle;
+  color: black;
+  background: none;
+}
+#data text.percent, .chart-container text.percent {
+  text-anchor: middle;
+}
+#data text.pie-data, .chart-container text.pie-data {
+  text-anchor: middle;
+  font-size: 80%;
+  color: #ccc;
+}
+#data path.plot, .chart-container path.plot {
+  stroke: #e68d59;
+  stroke-width: 3;
+  fill: none;
+}
+#data circle.point, .chart-container circle.point {
+  cursor: none;
+  stroke: none;
+  fill: transparent;
+}
+#data circle.point:hover, .chart-container circle.point:hover {
+  fill: black;
+}
+#data path.arc, .chart-container path.arc {
+  fill: blue; /* default */
+}
+#data path.arc.arc-0, .chart-container path.arc.arc-0 {
+  fill: #216696;
+}
+#data path.arc.arc-1, .chart-container path.arc.arc-1 {
+  fill: #d6e9f3;
+}
+#data .grid .tick, .chart-container .grid .tick {
+  stroke: lightgrey;
+  opacity: 0.2;
+}
+#data .grid path, .chart-container .grid path {
+  stroke-width: 0;
+}
+#data text.x-axis-name, #data text.y-axis-name, .chart-container text.x-axis-name, .chart-container text.y-axis-name {
+  font-variant: small-caps;
+  font-size: 0.7em;
+}
+#data rect.bar, .chart-container rect.bar {
+  stroke: white;
+  stroke-width: 1px;
+  fill: rgb(94, 156, 195);
+}
+#data rect.bar-spc, .chart-container rect.bar-spc {
+  fill: rgb(24, 81, 119);
+}
+#data .cheat, .chart-container .cheat {
+  stroke: black;
+  stroke-width: 3;
+  fill: red;
+}
+#data g.stack, .chart-container g.stack {
+  fill: blue; /* default */
+  /* rect { cursor: help; } */
+}
+#data g.stack.stack-mapped, .chart-container g.stack.stack-mapped {
+  fill: #15486f;
+}
+#data g.stack.stack-unmapped, .chart-container g.stack.stack-unmapped {
+  fill: #e68d59;
+}
+#data g.legend.legend-mapped, .chart-container g.legend.legend-mapped {
+  fill: #15486f;
+}
+#data g.legend.legend-unmapped, .chart-container g.legend.legend-unmapped {
+  fill: #e68d59;
+}
+#data g.legend text, .chart-container g.legend text {
+  color: black;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  font-size: 0.7em;
+}
+#data #base-coverage h2, #data #base-quality h2, #data #mapping-quality h2, #data #mapped-unmapped h2, .chart-container #base-coverage h2, .chart-container #base-quality h2, .chart-container #mapping-quality h2, .chart-container #mapped-unmapped h2 {
+  margin-bottom: 0;
+}
+#data rect.basechanges, .chart-container rect.basechanges {
+  fill: black;
+  stroke: black;
+  stroke-width: 0.5;
+}
+#data rect.basechanges.basechanges-A, .chart-container rect.basechanges.basechanges-A {
+  fill: rgb(24, 81, 119);
+}
+#data rect.basechanges.basechanges-C, .chart-container rect.basechanges.basechanges-C {
+  fill: rgb(94, 156, 195);
+}
+#data rect.basechanges.basechanges-G, .chart-container rect.basechanges.basechanges-G {
+  fill: rgb(235, 150, 98);
+}
+#data rect.basechanges.basechanges-T, .chart-container rect.basechanges.basechanges-T {
+  fill: rgb(246, 199, 94);
+}
+#data text.basechanges-label, .chart-container text.basechanges-label {
+  font-size: 90%;
+}
+#data line.basechanges-label-line, .chart-container line.basechanges-label-line {
+  stroke: black;
+  stroke-width: 0.5;
+}
+#data span.tstv-ratio, .chart-container span.tstv-ratio {
+  font-family: monospace;
+}
+
+.chart-container {
+  margin: 0;
+  margin-top: 10px;
+  width: auto;
+  gap: 0.5em;
+}
+.chart-container.bam .tabs {
+  display: flex;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  border: 1px solid #adadad;
+}
+.chart-container.bam .tabs label {
+  padding: 5px 10px 5px 8px;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.chart-container.bam .tabs label:hover {
+  background-color: #e6e6e6;
+}
+.chart-container.bam input[type=radio][name$=scroll] {
+  appearance: none;
+  display: none;
+}
+.chart-container.bam section[value=scroll-on], .chart-container.bam section[value=scroll-off] {
+  display: none;
+}
+.chart-container.bam input[type=radio][name$=scroll][value=scroll-on]:checked ~ .tabs label[for$=scroll-on] {
+  background-color: #d4d4d4;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.chart-container.bam input[type=radio][name$=scroll][value=scroll-off]:checked ~ .tabs label[for$=scroll-off] {
+  background-color: #d4d4d4;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.chart-container.bam input[type=radio][name$=scroll][value=scroll-on]:checked ~ section[value=scroll-on] {
+  display: block;
+}
+.chart-container.bam input[type=radio][name$=scroll][value=scroll-off]:checked ~ section[value=scroll-off] {
+  display: block;
+}
+.chart-container.bam svg .x-axis-name, .chart-container.bam svg .y-axis-name {
+  font-size: 1em;
+  font-variant: normal;
+  fill: #b1b1b1;
+}
+.chart-container.bam svg .y-axis .tick line:first-of-type {
+  display: none;
+}
+.chart-container.bam svg .title {
+  text-transform: capitalize;
+  font-size: 1.5em;
+  color: #444;
+}
+.chart-container.bam path.plot {
+  stroke: rgb(124, 181, 236);
+}
+.chart-container.bam path.graph-tooltip {
+  fill: hsl(209, 75%, 76%);
+}
+.chart-container .svg-container {
+  position: relative;
+}
+.chart-container .svg-container svg {
+  max-width: none;
+  background-color: transparent;
+}
+.chart-container .svg-container i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  display: none;
+  color: #666;
+}
+.chart-container .svg-container.loading i {
+  display: inline;
+}
+.chart-container .svg-container.scrollable > svg {
+  position: absolute;
+}
+.chart-container .svg-container.scrollable.loading > svg {
+  position: relative;
+}/*# sourceMappingURL=bam2.css.map */

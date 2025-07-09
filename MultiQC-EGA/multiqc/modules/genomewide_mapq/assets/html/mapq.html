@@ -1,0 +1,50 @@
+<div class="chart-container bam">
+    <input type="radio" name="mapq-intervals-scroll" value="scroll-on" id="mapq-intervals-scroll-on" checked>
+    <input type="radio" name="mapq-intervals-scroll" value="scroll-off" id="mapq-intervals-scroll-off">
+    <div class="tabs">
+      <label for="mapq-intervals-scroll-on">scroll</label>
+      <label for="mapq-intervals-scroll-off">fit width</label>
+    </div>
+    <section value="scroll-off" id="mapq-intervals" class="wide" data-ifmissing="Missing data">
+      <div class="svg-container">
+        <svg></svg>
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+    </section>
+    <section value="scroll-on" id="mapq-intervals-scroll" class="wide" data-ifmissing="Missing data">
+      <div class="svg-container scrollable">
+        <svg></svg>
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+    </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+ window.ega_curve_mo("#mapq-intervals svg", 
+  JSON.parse("{{ mapq_intervals }}"),
+  {
+    xAxis: "Position (bp)",
+    yAxis: "Mapping Quality",
+    title: "Median Mapping Quality Across Reference",
+    showTitle: false,
+    showTooltip: true,
+    width:"auto",
+    expandX:"70px",
+    expandY:4,
+    expandYOnZoom:4
+  });
+
+  window.ega_curve_mos("#mapq-intervals-scroll svg", 
+  JSON.parse("{{ mapq_intervals }}"),
+  {
+    xAxis: "Position (bp)",
+    yAxis: "Mapping Quality",
+    title: "Median Mapping Quality Across Reference",
+    showTitle: false,
+    showTooltip: true,
+    width:"auto",
+    scrollRatio: "auto",
+    expandX:"70px",
+    expandXOnZoom:0.25
+  });
+</script>
