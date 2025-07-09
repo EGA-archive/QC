@@ -3,6 +3,7 @@
 ## 1. Requirements
 
 Before starting, make sure you have the following:
+# Files
 
 * A BAM or CRAM file (of course!)
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
@@ -11,7 +12,6 @@ Before starting, make sure you have the following:
   This must be placed in the same directory where you run the QC pipeline.
 * `multiqc_config.yaml` (also from `Required_Files`). Needed for generating the MultiQC report.
 
-Now, what does my computer need?
 
 # Programming language 
 * python3
