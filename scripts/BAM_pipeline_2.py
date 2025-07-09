@@ -208,7 +208,7 @@ def main():
     run_command(f"/bio-scratch/angel/qualimap-install-attempt/qualimap_v2.3/qualimapACT bamqc -bam {bam_file} -c --outdir {output_dir} --java-mem-size=16G")
     run_command(f"read_distribution.py -i {bam_file} -r {bed_file} > {output_dir}/read_distribution.txt")
     run_command(f"java -jar /bio-scratch/Aurora/BAM_report/definitivo/picard.jar  CollectAlignmentSummaryMetrics           R= {fasta_file}           I= {bam_file}          O=picard_output.txt")
-    run_command(f"java -jar /bio-scratch/Aurora/BAM_report/definitivo/picard.jar QualityYieldMetrics I= {bam_file} O= collect_bases_metrics.txt")
+    run_command(f"java -jar /bio-scratch/Aurora/BAM_report/definitivo/picard.jar CollectQualityYieldMetrics I= {bam_file} O= collect_bases_metrics.txt")
     run_command(f"samtools view -H {bam_file} > header.txt")
 
     window_cov = 3_000_000
