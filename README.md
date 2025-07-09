@@ -12,6 +12,6 @@ Calculates per-window statistics (MAPQ, coverage) using custom Python scripts.
 
 BAM_finalize_2.py: 
 
-Formats the results from BAM_pipeline_2.py to be compatible with MultiQC, using a customized version of MultiQC included in this repository.
+Formats the results from BAM_pipeline_2.py to be compatible with MultiQC, using a customized version of MultiQC. You’ll also find this modified version included in this repository.
 
-Finally, we generate a customized MultiQC report, using a patched version of MultiQC tailored to our output. You’ll also find this modified version included in this repository.
+
