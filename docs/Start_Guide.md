@@ -1,5 +1,5 @@
 # Quick Start Guide: BAM/CRAM Quality Assessment
-
+ 
 ## 1. Requirements
 
 Before starting, make sure you have the following:
@@ -10,7 +10,31 @@ Before starting, make sure you have the following:
 * `chrnames.json` (download from the `Required_Files` folder in this repository).
   This must be placed in the same directory where you run the QC pipeline.
 * `multiqc_config.yaml` (also from `Required_Files`). Needed for generating the MultiQC report.
+
+Now, what does my computer need?
+
+#Programming language 
+* python3
+  
+#Tools
 * MultiQC-EGA (custom fork of MultiQC adapted for this pipeline).
+* RSeQC
+* Qualimap
+* samtools
+* Picard
+  
+#Libraries
+* subprocess
+* argparse
+* os
+* pysam
+* json
+* math
+* statistics
+* collections
+* re
+* pandas
+* warnings
 
 ---
 
