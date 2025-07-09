@@ -13,17 +13,17 @@ Before starting, make sure you have the following:
 
 Now, what does my computer need?
 
-#Programming language 
+# Programming language 
 * python3
   
-#Tools
+# Tools
 * MultiQC-EGA (custom fork of MultiQC adapted for this pipeline).
 * RSeQC
 * Qualimap
 * samtools
 * Picard
   
-#Libraries
+# Libraries
 * subprocess
 * argparse
 * os
