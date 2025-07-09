@@ -4,7 +4,7 @@
 
 Before starting, make sure you have the following:
 
-* A BAM or CRAM file
+* A BAM or CRAM file (of course!)
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
 * A BED file with annotations (same assembly as the BAM/CRAM)
 * `chrnames.json` (download from the `Required_Files` folder in this repository).
@@ -79,6 +79,5 @@ This will generate a customized, interactive MultiQC report summarizing all your
 
 ## Final Notes
 
-* Make sure your `multiqc_config.yaml` is consistent with the version of MultiQC you installed.
 * The `chrnames.json` file ensures chromosome naming is standardized across tools.
 * If anything fails, check that your reference genome and annotation files match the same genome assembly as the BAM/CRAM.
