@@ -8,121 +8,105 @@ The European Genome-phenome Archive (EGA) currently stores nearly 3 million BAM 
 
 This documentation provides an in-depth overview of these tools, including the modules developed and the modifications made to integrate with MultiQC.
 
----
+## BAM_pipeline_2.py
 
-## CRAM to BAM Conversion
-Working directly with CRAM files is often problematic due to inconsistent support across tools. We therefore convert CRAM files to BAM using `samtools view -b`, which requires the MD5 checksum of the reference genome unless the reference sequence is embedded in the CRAM file.
+### Tools used
 
----
+**Qualimap**: generates comprehensive BAM statistics, including coverage, mapping quality, GC content, homopolymers, etc. Also produces genome_results.txt with general metrics.
 
-## Tools Used
+**RSeQC**: analyzes the distribution of reads across genomic regions (exons, introns, UTRs...) using a BED file.
 
-### Qualimap
-Generates comprehensive BAM statistics such as:
-- Mapping quality
-- Coverage
-- Nucleotide composition
-- Homopolymer presence
+**Samtools (depth -a)**: outputs base-level coverage in three columns: chromosome, position, and coverage.
 
-It also produces a summary file (`genome_results.txt`) with global metrics.
+**Picard**:
 
-### RSeQC
-Uses a BED annotation file to determine where reads fall (exons, introns, UTRs) and creates informative plots.
+- CollectAlignmentSummaryMetrics: reports alignment quality metrics.
+- CollectQualityYieldMetrics: provides quality and yield metrics for bases passing quality thresholds.
 
-### Samtools (depth -a)
-Provides per-base coverage in three columns: chromosome, position, and coverage.
+### Custom functions implemented
 
-### Picard (CollectAlignmentSummaryMetrics)
-Generates alignment quality metrics. We extract `PCT_Chimeras` for inclusion in our summary report.
+**convert_cram_to_bam()**: converts .cram files to .bam using samtools, if necessary.
 
----
+**create_bam_index()**: generates a BAM index (.bai) if not present.
 
-## Custom Functions in the Pipeline
-
-### `parse_bam_header()`
-Extracts metadata from the BAM header:
-- Format version
-- Sort order
-- Platform
-- Sample name
-- Tools used
+**parse_bam_header()**: extracts metadata from the BAM header (version, sort order, platform, sample, tools, assembly).
 
 ## `calculate_stat_from_counter()`
 
-Esta es una función auxiliar que se usa dentro de `calculate_coverage_stat_streaming()` para calcular una estadística (por ahora, la mediana) a partir de un conjunto de valores de cobertura.
+This is a helper function used inside `calculate_coverage_stat_streaming()` to compute a statistic (currently, the median) from a set of coverage values.
 
-La entrada es un `Counter`, donde cada clave representa un valor de cobertura (por ejemplo, 0, 1, 2...), y el valor asociado indica cuántas veces aparece en una ventana del genoma.  
-Esta función transforma ese diccionario en una lista de valores repetidos según su frecuencia, y calcula la mediana. Si no hay valores, devuelve `0.0`.
+The input is a `Counter`, where each key represents a coverage value (e.g., 0, 1, 2...), and the associated value indicates how many times it appears in a genome window.  
+This function transforms that dictionary into a list of values repeated according to their frequency, and calculates the median. If no values are present, it returns `0.0`.
 
 ---
 
 ## `calculate_coverage_stat_streaming()`
 
-Esta función divide el genoma en intervalos de un tamaño fijo (por ejemplo, 3 millones de pares de bases).  
-Para cada intervalo o ventana, calcula un único valor de cobertura representativo, que puede ser la **media** o la **mediana** de las coberturas observadas en ese tramo.
+This function divides the genome into fixed-size intervals (e.g., 3 million base pairs).  
+For each interval or window, it calculates a representative coverage value, which can be the **mean** or the **median** of the coverages observed in that segment.
 
-### 📌 ¿Cómo lo hace?
+### 📌 How does it work?
 
-La idea principal es **resumir la cobertura del BAM** en bloques de tamaño fijo, llamados **ventanas**, a lo largo de todo el genoma. En este caso, cada ventana cubre 3.000.000 pares de bases.
+The main idea is to **summarize BAM coverage** in fixed-size blocks, called **windows**, along the genome. In this case, each window spans 3,000,000 base pairs.
 
 ---
 
-### 🔹 Paso a paso
+### 🔹 Step by step
 
-#### 1. Lectura línea por línea con `samtools depth`
+#### 1. Read line by line with `samtools depth`
 
-Se lanza el comando:
-
-```
-samtools depth -a archivo.bam
-```
-
-Este comando devuelve, para cada posición del genoma, tres columnas:
+Command used:
 
 ```
-cromosoma   posición   cobertura
-chr1        0          12  
-chr1        1          13  
-chr1        2          15  
+samtools depth -a file.bam
+```
+
+This command returns three columns for each position in the genome:
+
+```
+chromosome   position   coverage
+chr1         0          12  
+chr1         1          13  
+chr1         2          15  
 ...
 ```
 
-La cobertura representa el número de lecturas que cubren esa posición.
+Coverage represents the number of reads covering that position.
 
 ---
 
-#### 2. Asignar cada posición a una ventana
+#### 2. Assign each position to a window
 
-Cada posición se traduce en una **posición global** (sumando offsets entre cromosomas), y a partir de esa posición se determina a qué ventana pertenece.
+Each position is translated into a **global position** (adding chromosome offsets), and from that position, its window is determined.
 
 ```python
 window_start = (global_pos // window_size) * window_size
 ```
 
-**Ejemplo:**  
-La posición global `4.200.000` pertenece a la ventana `[3.000.000 – 5.999.999]`, que empieza en `3.000.000`.
+**Example:**  
+Global position `4,200,000` belongs to the window `[3,000,000 – 5,999,999]`, which starts at `3,000,000`.
 
 ---
 
-#### 3. Acumular la frecuencia de cada valor de cobertura en cada ventana
+#### 3. Accumulate the frequency of each coverage value per window
 
-Se construye un diccionario `coverage_by_window` donde:
+A dictionary `coverage_by_window` is built where:
 
-- La **clave** es el inicio de la ventana (`window_start`)
-- El **valor** es un `Counter`, que almacena cuántas veces aparece cada nivel de cobertura dentro de esa ventana.
+- The **key** is the window start (`window_start`)
+- The **value** is a `Counter`, which stores how many times each coverage level appears in that window.
 
-**Ejemplo simplificado:**
+**Simplified example:**
 
 ```
-posición   cobertura
-3.000.005  0
-3.000.010  0
-3.000.050  1
-3.000.300  1
-3.000.700  2
+position   coverage
+3,000,005  0
+3,000,010  0
+3,000,050  1
+3,000,300  1
+3,000,700  2
 ```
 
-Entonces:
+Then:
 
 ```python
 coverage_by_window[3000000] = Counter({0: 2, 1: 2, 2: 1})
@@ -130,63 +114,63 @@ coverage_by_window[3000000] = Counter({0: 2, 1: 2, 2: 1})
 
 ---
 
-### 🔁 ¿Y cómo se resume todo eso?
+### 🔁 How is all that summarized?
 
-Una vez tienes todos los contadores (`Counter`) por ventana, necesitas obtener un único valor representativo por ventana: la **media** o la **mediana** de cobertura.
+Once all `Counter`s are built per window, a single representative value per window is computed: the **mean** or **median** coverage.
 
-Ahí entra la función `calculate_stat_from_counter(counter)`.
+This is done with `calculate_stat_from_counter(counter)`.
 
 ```python
-# Entrada:
+# Input:
 Counter({0: 2, 1: 2, 2: 1})
 
-# Convertido a lista:
+# Converted to list:
 [0, 0, 1, 1, 2]
 
-# Mediana:
+# Median:
 1
 ```
 
-Este valor se asocia a la ventana en el resultado final.
+This value is linked to the window in the final result.
 
 ---
 
-## 🔢 ¿Qué es una posición global?
+## 🔢 What is a global position?
 
-Como la intención es representar la cobertura a lo largo de **todo el genoma como si fuera una línea recta**, cada posición necesita tener un valor único que indique su lugar en ese “genoma concatenado”.
+The idea is to represent genome coverage as if it were a **single continuous line**. Each position must have a unique value indicating its place in this “concatenated genome”.
 
-Para lograr esto, se construye un diccionario de **offsets acumulados**, donde:
+To achieve this, a dictionary of **accumulated offsets** is built where:
 
-- `chr1` empieza en la posición `0`
-- `chr2` empieza justo después del final de `chr1` (por ejemplo, en la posición `249.250.621`)
-- `chr3` empieza después de `chr2`, y así sucesivamente
+- `chr1` starts at position `0`
+- `chr2` starts right after `chr1` ends (e.g., at position `249,250,621`)
+- `chr3` starts after `chr2`, and so on
 
-De este modo, si una ventana empieza en la posición global `3.000.000`, sabremos si corresponde a `chr1`, `chr2`, etc., dependiendo de estos offsets.  
-Es una forma práctica de recorrer el genoma como si fuera una única secuencia.
-
----
-
-## 🔀 Gestión de nombres de cromosomas
-
-Una parte importante del script está dedicada a gestionar los diferentes formatos en que aparecen los nombres de los cromosomas en los archivos BAM (por ejemplo, `1` vs `chr1`, `MT` vs `chrM`, etc.).  
-
-Como no hay un estándar único (NCBI, UCSC, Ensembl usan nomenclaturas distintas), se usa un archivo llamado `chrnames.json`, que contiene un diccionario de equivalencias.
-
-Si el BAM tiene nombres desconocidos, el script simplemente usa los nombres del header y los incluye tal cual en el JSON final.
+That way, if a window starts at global position `3,000,000`, it can be mapped to `chr1`, `chr2`, etc., depending on these offsets.  
+It’s a practical way to treat the genome as a single sequence.
 
 ---
 
-## ⚠️ Tratamiento especial de `chrM`
+## 🔀 Chromosome name handling
 
-El cromosoma mitocondrial (`chrM`) es muy pequeño (por ejemplo, 16.569 pb), por lo que **no se agrupa por ventanas**.  
+A significant part of the script is dedicated to managing the various formats of chromosome names found in BAM files (e.g., `1` vs `chr1`, `MT` vs `chrM`, etc.).  
 
-En lugar de eso, se calcula un **valor único de cobertura** (media o mediana) para él y se coloca al final del JSON con una **posición artificial**.
+Since there’s no single standard (NCBI, UCSC, Ensembl use different conventions), a file called `chrnames.json` is used, containing a dictionary of equivalents.
+
+If a BAM file has unknown names, the script simply uses the header names and includes them as-is in the final JSON.
 
 ---
 
-## 🧾 Resultado final
+## ⚠️ Special treatment of `chrM`
 
-La salida es un archivo `.json` con el siguiente formato:
+The mitochondrial chromosome (`chrM`) is very small (e.g., 16,569 bp), so it’s **not grouped into windows**.  
+
+Instead, a **single coverage value** (mean or median) is computed for it and placed at the end of the JSON with an **artificial position**.
+
+---
+
+## 🧾 Final output
+
+The output is a `.json` file with the following format:
 
 ```json
 [
@@ -198,10 +182,130 @@ La salida es un archivo `.json` con el siguiente formato:
 ]
 ```
 
-Cada línea representa:
+Each line represents:
 
-- El **cromosoma** al que pertenece la ventana  
-- La **posición global** en el genoma (calculada con offsets)  
-- El **valor de cobertura** en esa ventana (media o mediana)
+- The **chromosome** to which the window belongs  
+- The **global position** in the genome (computed using offsets)  
+- The **coverage value** for that window (mean or median)
 
+---
 
+### Output example:
+
+```json
+[
+  ["chr1", 0, 24.2],
+  ["chr1", 3000000, 23.8],
+  ["chr2", 249250621, 27.5],
+  ["chrM", 900000000, 98.1]
+]
+```
+
+---
+
+## BAM_finalize_2.py
+
+### Part 1: Create modified `genome_results.txt`
+
+Merges information from:
+
+* `genome_results.txt` (Qualimap)
+* `picard_output.txt` and `collect_bases_metrics.txt` (Picard)
+
+To generate a new `genome_results.txt` with the following variables:
+
+* Sample
+* File name
+* Total reads
+* Mapped reads
+* Properly paired reads
+* Singleton reads
+* % Duplicates
+* Insert size mean
+* Mapping quality mean
+* GC content
+* Mismatch rate
+* Coverage mean
+* Coverage std dev
+* PCT_chimeras
+* PF_Q30_BASES
+* TOTAL_BASES
+
+### Part 2: Format Qualimap files for MultiQC
+
+**Deleted files:** removes all `.txt` files **not in**:
+
+* `insert_size_histogram.txt`
+* `genome_fraction_coverage.txt`
+* `mapped_reads_clipping_profile.txt`
+* `mapping_quality_histogram.txt`
+* `homopolymer_indels.txt`
+* `mapped_reads_nucleotide_content.txt`
+
+**Renamed for MultiQC:**
+
+* `insert_size_histogram.txt` → `insert_size_plot_mqc.txt`
+* `mapping_quality_histogram.txt` → `mapping_quality_plot_mqc.txt`
+* Others → `<basename>_mqc.txt`
+
+**Content reformatting:**
+
+* Removes the first line from each file.
+* Converts numeric values:
+
+  * Integers → `int`
+  * Decimals → `float` with 15 decimal places
+* `homopolymer_indels_mqc.txt`: adds header `Label\tNumber of Indels`
+* `mapped_reads_nucleotide_content_mqc.txt`:
+
+  * Renames `# Position (bp)` → `Position (bp)`
+  * Transposes the table
+
+---
+
+## MultiQC Integration
+
+### Developed/modified modules:
+
+* `tablemaker/` (custom):
+
+  * Parses `bam_header_info.txt` and `genome_results.txt`
+  * Generates "BAM Header Info" and "Genome Results Summary" tables
+
+* `genomewide_coverage/` (custom):
+
+  * Visualizes genome-wide coverage across chromosomes
+  * Input: `coverage_median_3Mb_complete.json`
+
+* Modified Qualimap outputs:
+  * Graphics: 
+   * insert size distribution
+   * genome fraction coverage
+   * mapped reads clipping profile
+   * mapping quality distribution
+   * homopolymer indels
+   * mapped reads nucleotide content
+
+  * Original files parsed:
+
+    * `insert_size_histogram.txt`
+    * `genome_fraction_coverage.txt`
+    * `mapped_reads_clipping_profile.txt`
+    * `mapping_quality_histogram.txt`
+    * `homopolymer_indels.txt`
+    * `mapped_reads_nucleotide_content.txt`
+  * See Qualimap docs for further explanation: [http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc](http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc)
+
+* `read_distribution` (modified):
+
+  * Input: `read_distribution.txt` (RSeQC)
+  * Adds detailed descriptions based on BAM/CRAM generation strategy
+
+### Visual configuration (`multiqc_config.yaml`):
+
+* Configures axis labels and descriptions for the above plots
+* Removes:
+
+  * Percentage toggle button in `homopolymer indels`
+  * Sample count labels in `homopolymer indels` and `mapped nucleotide content`
+  * Report timestamp and input path
