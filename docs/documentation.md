@@ -169,7 +169,7 @@ If a BAM file has unknown names, the script simply uses the header names and inc
 
 The mitochondrial chromosome (`chrM`) is very small (e.g., 16,569 bp), so it’s **not grouped into windows**.  
 
-Instead, a **single coverage value** (median) is computed for it and placed at the end of the JSON with an **artificial position**.
+Instead, a **single coverage value** (median) is computed for it and placed at the end of the JSON.
 
 ---
 
