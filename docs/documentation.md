@@ -195,19 +195,6 @@ Each line represents:
 
 ---
 
-### Output example:
-
-```json
-[
-  ["chr1", 0, 24.2],
-  ["chr1", 3000000, 23.8],
-  ["chr2", 249250621, 27.5],
-  ["chrM", 900000000, 98.1]
-]
-```
-
----
-
 ## BAM_finalize_2.py
 
 ### Part 1: Create modified `genome_results.txt`
