@@ -27,14 +27,14 @@ This documentation provides an in-depth overview of these tools, including the m
 
 ## `convert_cram_to_bam()`
 
-converts .cram files to .bam using samtools, if necessary.
+Converts .cram files to .bam using samtools, if necessary.
 
 ## `create_bam_index()`
 
-generates a BAM index (.bai) if not present.
+Generates a BAM index (.bai) if not present.
 
 ## `parse_bam_header()`
-extracts metadata from the BAM header (version, sort order, platform, sample, tools, assembly).
+Extracts metadata from the BAM header (version, sort order, platform, sample, tools, assembly).
 
 ## `calculate_stat_from_counter()`
 
