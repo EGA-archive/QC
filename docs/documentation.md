@@ -215,14 +215,16 @@ To generate a new `genome_results.txt` with the following variables:
 * Median Insert size (from Qualimap)
 * Mean mapping quality (from Qualimap) 
 * % GC (from Qualimap) 
-* General error rate (from Qualimap)
-* Mean coverage (from Qualimap)
+* General error rate (from Qualimap) --> In Qualimap, the general error rate is the ratio of mismatches to total mapped bases. It reflects the overall alignment accuracy.
+* Mean coverage (from Qualimap) --> Qualimap calculates total coverage by iterating over the genome in windows and summing the number of mapped bases (i.e., the aligned bases from each read). For each window, it inspects individual alignment records and accumulates the total number of mapped bases.
+The mean coverage is then computed by dividing the total number of mapped bases by the reference genome size.
+🔹 Important: Qualimap includes all mapped reads, even multi-mapped ones. To exclude secondary alignments, it's recommended to filter them out from the BAM file before running Qualimap.
 * Std coverage (from Qualimap)
 * % Duplicated reads (from Qualimap) 
 * PCT_chimeras (from CollectAlignmentSummaryMetrics)
-* PF_Q30_BASES (from CollectQualityYieldMetrics)
+* PF_Q30_BASES (from CollectQualityYieldMetrics) --> The number of bases in PF reads (passing Illumina's filter.) that achieve quality score 30 or higher
 * TOTAL_BASES (from CollectQualityYieldMetrics)
-
+   
 ### Part 2: Format Qualimap files for MultiQC
 
 **Deleted files:** removes all `.txt` files **not in**:
@@ -301,5 +303,4 @@ To generate a new `genome_results.txt` with the following variables:
 * Removes:
 
   * Percentage toggle button in `homopolymer indels`
-  * Sample count labels in `homopolymer indels` and `mapped nucleotide content`
   * Report timestamp and input path
