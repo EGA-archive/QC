@@ -219,22 +219,22 @@ Merges information from:
 
 To generate a new `genome_results.txt` with the following variables:
 
-* Sample
-* File name
-* Number of reads
-* Number of mapped reads
-* Number of mapped paired reads (both in pair)
-* Number of mapped paired reads (singletons)
-* Median Insert size 
-* Mean mapping quality 
-* % GC 
-* General error rate
-* Mean coverage
-* Std coverage
-* % Duplicated reads 
-* PCT_chimeras
-* PF_Q30_BASES
-* TOTAL_BASES
+* Sample (from BAM header)
+* File name 
+* Number of reads (from Qualimap)
+* Number of mapped reads (from Qualimap)
+* Number of mapped paired reads (both in pair) (from Qualimap)
+* Number of mapped paired reads (singletons) (from Qualimap)
+* Median Insert size (from Qualimap)
+* Mean mapping quality (from Qualimap) 
+* % GC (from Qualimap) 
+* General error rate (from Qualimap)
+* Mean coverage (from Qualimap)
+* Std coverage (from Qualimap)
+* % Duplicated reads (from Qualimap) 
+* PCT_chimeras (from CollectAlignmentSummaryMetrics)
+* PF_Q30_BASES (from CollectQualityYieldMetrics)
+* TOTAL_BASES (from CollectQualityYieldMetrics)
 
 ### Part 2: Format Qualimap files for MultiQC
 
