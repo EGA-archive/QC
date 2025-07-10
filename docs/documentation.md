@@ -280,7 +280,7 @@ To generate a new `genome_results.txt` with the following variables:
    * homopolymer indels
    * mapped reads nucleotide content
 
-  * Original files parsed:
+  Original files parsed:
 
     * `insert_size_histogram.txt`
     * `genome_fraction_coverage.txt`
