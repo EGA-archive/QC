@@ -258,7 +258,7 @@ The mean coverage is then computed by dividing the total number of mapped bases 
 
 ---
 
-## MultiQC Integration
+## MultiQC Report
 
 ### Developed/modified modules:
 
