@@ -43,7 +43,7 @@ Before starting, make sure you have the following:
 Clone the customized MultiQC repository:
 
 ```bash
-git clone https://github.com/santiRenso/MultiQC-fork.git
+git clone (AÑADIR LINK)
 cd MultiQC-fork
 pip install -e .
 ```
