@@ -48,7 +48,7 @@ This function transforms that dictionary into a list of values repeated accordin
 ## `calculate_coverage_stat_streaming()`
 
 This function divides the genome into fixed-size intervals (e.g., 3 million base pairs).  
-For each interval or window, it calculates a representative coverage value, which can be the **mean** or the **median** of the coverages observed in that segment.
+For each interval or window, it calculates the **median** of the coverage observed in that segment.
 
 ### 📌 How does it work?
 
@@ -121,7 +121,7 @@ coverage_by_window[3000000] = Counter({0: 2, 1: 2, 2: 1})
 
 ### 🔁 How is all that summarized?
 
-Once all `Counter`s are built per window, a single representative value per window is computed: the **mean** or **median** coverage.
+Once all `Counter`s are built per window, a single representative value per window is computed: **median** coverage.
 
 This is done with `calculate_stat_from_counter(counter)`.
 
@@ -169,7 +169,7 @@ If a BAM file has unknown names, the script simply uses the header names and inc
 
 The mitochondrial chromosome (`chrM`) is very small (e.g., 16,569 bp), so it’s **not grouped into windows**.  
 
-Instead, a **single coverage value** (mean or median) is computed for it and placed at the end of the JSON with an **artificial position**.
+Instead, a **single coverage value** (median) is computed for it and placed at the end of the JSON with an **artificial position**.
 
 ---
 
@@ -191,7 +191,7 @@ Each line represents:
 
 - The **chromosome** to which the window belongs  
 - The **global position** in the genome (computed using offsets)  
-- The **coverage value** for that window (mean or median)
+- The **coverage value** for that window (median)
 
 ---
 
