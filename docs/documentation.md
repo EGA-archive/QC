@@ -218,7 +218,8 @@ To generate a new `genome_results.txt` with the following variables:
 * General error rate (from Qualimap) --> In Qualimap, the general error rate is the ratio of mismatches to total mapped bases. It reflects the overall alignment accuracy.
 * Mean coverage (from Qualimap) --> Qualimap calculates total coverage by iterating over the genome in windows and summing the number of mapped bases (i.e., the aligned bases from each read). For each window, it inspects individual alignment records and accumulates the total number of mapped bases.
 The mean coverage is then computed by dividing the total number of mapped bases by the reference genome size.
-🔹 Important: Qualimap includes all mapped reads, even multi-mapped ones. To exclude secondary alignments, it's recommended to filter them out from the BAM file before running Qualimap.
+
+**Important:** Qualimap includes all mapped reads, even multi-mapped ones. To exclude secondary alignments, it's recommended to filter them out from the BAM file before running Qualimap.
 * Std coverage (from Qualimap)
 * % Duplicated reads (from Qualimap) 
 * PCT_chimeras (from CollectAlignmentSummaryMetrics)
