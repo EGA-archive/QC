@@ -84,7 +84,7 @@ def calculate_stat_from_counter(counter, mode="mean"):
         return 0.0
     return round(statistics.mean(values), 2) if mode == "mean" else round(statistics.median(values), 2)
 
-def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_json_path="chrnames.json", mode="mean"):
+def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_json_path="chrnames.json"):
     with open(alias_json_path, "r") as f:
         alias_map = json.load(f)
 
@@ -168,7 +168,7 @@ def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_
 
     if chrM_coverages:
         artificial_pos = num_windows * window_size
-        chrM_stat = round(statistics.mean(chrM_coverages), 2) if mode == "mean" else round(statistics.median(chrM_coverages), 2)
+        chrM_stat = round(statistics.median(chrM_coverages), 2)
         result.append(["chrM", artificial_pos, chrM_stat])
     else:
         print(" [WARNING] chrM does not have a coverage")
