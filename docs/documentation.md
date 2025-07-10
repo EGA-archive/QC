@@ -25,11 +25,16 @@ This documentation provides an in-depth overview of these tools, including the m
 
 ### Custom functions implemented
 
-**convert_cram_to_bam()**: converts .cram files to .bam using samtools, if necessary.
+## `convert_cram_to_bam()`
 
-**create_bam_index()**: generates a BAM index (.bai) if not present.
+converts .cram files to .bam using samtools, if necessary.
 
-**parse_bam_header()**: extracts metadata from the BAM header (version, sort order, platform, sample, tools, assembly).
+## `create_bam_index()`
+
+generates a BAM index (.bai) if not present.
+
+## `parse_bam_header()`
+extracts metadata from the BAM header (version, sort order, platform, sample, tools, assembly).
 
 ## `calculate_stat_from_counter()`
 
