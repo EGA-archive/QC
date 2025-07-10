@@ -270,7 +270,7 @@ To generate a new `genome_results.txt` with the following variables:
   * Input: `coverage_median_3Mb_complete.json`
 
 * Modified Qualimap outputs:
-  * Graphics: 
+ Graphics: 
    * insert size distribution
    * genome fraction coverage
    * mapped reads clipping profile
