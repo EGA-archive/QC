@@ -288,7 +288,7 @@ To generate a new `genome_results.txt` with the following variables:
     * `mapping_quality_histogram.txt`
     * `homopolymer_indels.txt`
     * `mapped_reads_nucleotide_content.txt`
-  * See Qualimap docs for further explanation: [http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc](http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc)
+    See Qualimap docs for further explanation: [http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc](http://qualimap.conesalab.org/doc_html/analysis.html#bam-qc)
 
 * `read_distribution` (modified):
 
@@ -297,7 +297,7 @@ To generate a new `genome_results.txt` with the following variables:
 
 ### Visual configuration (`multiqc_config.yaml`):
 
-* Configures axis labels and descriptions for the above plots
+* Configures axis labels and descriptions for the Qualimap plots
 * Removes:
 
   * Percentage toggle button in `homopolymer indels`
