@@ -221,17 +221,17 @@ To generate a new `genome_results.txt` with the following variables:
 
 * Sample
 * File name
-* Total reads
-* Mapped reads
-* Properly paired reads
-* Singleton reads
-* % Duplicates
-* Insert size mean
-* Mapping quality mean
-* GC content
-* Mismatch rate
-* Coverage mean
-* Coverage std dev
+* Number of reads
+* Number of mapped reads
+* Number of mapped paired reads (both in pair)
+* Number of mapped paired reads (singletons)
+* Median Insert size 
+* Mean mapping quality 
+* % GC 
+* General error rate
+* Mean coverage
+* Std coverage
+* % Duplicated reads 
 * PCT_chimeras
 * PF_Q30_BASES
 * TOTAL_BASES
