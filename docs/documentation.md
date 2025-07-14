@@ -304,6 +304,7 @@ The mean coverage is then computed by dividing the total number of mapped bases 
 * Removes:
   * Report timestamp
   * Report input path
+    
 For EGA this information was not meant to be shared, but feel free to add them to your report if you want. You can do it by just deleting the first two lines of the `multiqc_config.yaml` file. 
 ### Source code modifications
 
