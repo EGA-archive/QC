@@ -22,22 +22,33 @@ Before starting, make sure you have the following:
 
 ### Step 1: Download this repository to your computer.
 
-### Step 2: Run requirements.txt (con eso instalas rseqc, multiqc y librerias, chequear)
+https://docs.github.com/es/get-started/start-your-journey/downloading-files-from-github
+
+### Step 2: Enter run folder
+
+Now you can start working on your terminal, entering the run folder. 
 
 ```bash
-pip install -e .
+cd run/
 ```
-You're now ready to use MultiQC-EGA.
+
+### Step 3: Install libraries, RSeQC and MULTIQC-EGA 
+
+```bash
+pip install -r requirements.txt
+```
+You're now half way to start running our pipeline!
 
 ---
-### Step 3: Install samtools 
+### Step 4: Install samtools 
 
+This is not a python tool, so we could not include it in the requirements.txt file, and we could not include it in this repository wither, so you need to manage it by yourself, but it should be easy, you are almost there.
 Follow the tool documentation: https://github.com/samtools/samtools?tab=readme-ov-file
 
 You will end up having: 
 
 # Tools
-* MultiQC-EGA (custom fork of MultiQC adapted for this pipeline).
+* MultiQC-EGA (custom fork of MultiQC adapted for this pipeline, included in the requirements.txt).
 * RSeQC (included in requirements.txt)
 * Qualimap (included in this repository)
 * samtools (downloaded by the user)
@@ -55,11 +66,13 @@ You will end up having:
 * re
 * pandas
 * warnings
+  
 ## 3. Running the Pipeline
 
 ### Step 1: Run `BAM_pipeline_2.py`
 
-It is located in the scripts folder in this repository. 
+It is located in the run folder in this repository. 
+
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
 ```
@@ -67,10 +80,11 @@ It is located in the scripts folder in this repository.
 This script will:
 
 * Convert CRAM to BAM (if needed)
+* Create bam index file
 * Extract header metadata
-* Run QC tools: Qualimap, Picard, samtools, read\_distribution
+* Run QC tools: Qualimap, Picard, samtools, read_distribution
 * Compute coverage stats
-* Generate results in a folder named `bam_analysis_results/` (same directory as your input file)
+* Generate results in the folder named `output/` 
 
 ---
 
