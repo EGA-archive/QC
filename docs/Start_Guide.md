@@ -55,7 +55,7 @@ You're now ready to use MultiQC-EGA.
 
 ### Step 1: Run `BAM_pipeline_2.py`
 
-It is located in the scripts folder in this repository. 
+It is located in the scripts folder in this repository. Remember to place chrnames.json file where you are running this script. 
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
 ```
