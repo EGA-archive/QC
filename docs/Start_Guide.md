@@ -8,21 +8,41 @@ Before starting, make sure you have the following:
 * A BAM or CRAM file (of course!)
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
 * A BED file with annotations (same assembly as the BAM/CRAM)
-* `chrnames.json` (already in the ).
-* `multiqc_config.yaml` (also from `Required_Files`). Needed for generating the MultiQC report.
+* `chrnames.json` (you already have it in place).
+* `multiqc_config.yaml` (also in placed). Needed for generating the MultiQC report.
 
 
 # Programming language 
 * python3
-  
+
+
+---
+
+## 2. Installing required tools and libraries
+
+### Step 1: Run requirements.txt (con eso instalas rseqc, multiqc y librerias, chequear)
+
+```bash
+cd MultiQC-EGA
+pip install -e .
+```
+You're now ready to use MultiQC-EGA.
+
+---
+### Step 2: Install samtools 
+
+Follow the tool documentation: https://github.com/samtools/samtools?tab=readme-ov-file
+
+You will end up having: 
+
 # Tools
 * MultiQC-EGA (custom fork of MultiQC adapted for this pipeline).
-* RSeQC
-* Qualimap
-* samtools
-* Picard
+* RSeQC (included in requirements.txt)
+* Qualimap (included in this repository)
+* samtools (downloaded by the user)
+* Picard (included inside Qualimap folder in this repository)
   
-# Libraries
+# Libraries (included in requirements.txt)
 * subprocess
 * argparse
 * os
@@ -34,21 +54,6 @@ Before starting, make sure you have the following:
 * re
 * pandas
 * warnings
-
----
-
-## 2. Installing MultiQC-EGA
-
-From your terminal, enter the customized MultiQC repository:
-
-```bash
-cd MultiQC-EGA
-pip install -e .
-```
-You're now ready to use MultiQC-EGA.
-
----
-
 ## 3. Running the Pipeline
 
 ### Step 1: Run `BAM_pipeline_2.py`
