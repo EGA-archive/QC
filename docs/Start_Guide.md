@@ -20,16 +20,17 @@ Before starting, make sure you have the following:
 
 ## 2. Installing required tools and libraries
 
-### Step 1: Run requirements.txt (con eso instalas rseqc, multiqc y librerias, chequear)
+### Step 1: Download this repository to your computer.
+
+### Step 2: Run requirements.txt (con eso instalas rseqc, multiqc y librerias, chequear)
 
 ```bash
-cd MultiQC-EGA
 pip install -e .
 ```
 You're now ready to use MultiQC-EGA.
 
 ---
-### Step 2: Install samtools 
+### Step 3: Install samtools 
 
 Follow the tool documentation: https://github.com/samtools/samtools?tab=readme-ov-file
 
