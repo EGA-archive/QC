@@ -9,7 +9,7 @@ Before starting, make sure you have the following:
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
 * A BED file with annotations (same assembly as the BAM/CRAM)
 * `chrnames.json` (download from the `Required_Files` folder in this repository).
-  This must be placed in the same directory where you run the QC pipeline.
+  This must be placed in the same directory where you are running the BAM_pipeline_2.py script.
 * `multiqc_config.yaml` (also from `Required_Files`). Needed for generating the MultiQC report.
 
 
@@ -40,14 +40,13 @@ Before starting, make sure you have the following:
 
 ## 2. Installing MultiQC-EGA
 
-Clone the customized MultiQC repository:
+From your terminal, clone the customized MultiQC repository:
 
 ```bash
-
+git clone https://github.com/EGA-archive/BAM_QC.git
 cd MultiQC-EGA
 pip install -e .
 ```
-
 You're now ready to use MultiQC-EGA.
 
 ---
@@ -56,6 +55,7 @@ You're now ready to use MultiQC-EGA.
 
 ### Step 1: Run `BAM_pipeline_2.py`
 
+It is located in the scripts folder in this repository. 
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
 ```
