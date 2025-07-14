@@ -196,7 +196,7 @@ def main():
     elif input_path.endswith(".bam"):
         bam_file = input_path
     else:
-        raise ValueError("Input file has to be BAM or CRAM)
+        raise ValueError("Input file has to be BAM or CRAM")
 
     output_dir = os.path.join(os.path.dirname(bam_file), "bam_analysis_results")
     os.makedirs(output_dir, exist_ok=True)
