@@ -8,7 +8,7 @@ Before starting, make sure you have the following:
 * A BAM or CRAM file (of course!)
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
 * A BED file with annotations (same assembly as the BAM/CRAM)
-* `chrnames.json` (download from the `Required_Files` folder in this repository).
+* `chrnames.json` (already in the ).
 * `multiqc_config.yaml` (also from `Required_Files`). Needed for generating the MultiQC report.
 
 
