@@ -197,7 +197,7 @@ def main():
     else:
         raise ValueError("Input file has to be BAM or CRAM")
 
-    output_dir = os.path.join(os.path.dirname(bam_file), "bam_analysis_results")
+    output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "output"))
     os.makedirs(output_dir, exist_ok=True)
     alias_json = os.path.join(os.path.dirname(__file__), "chrnames.json")
 
