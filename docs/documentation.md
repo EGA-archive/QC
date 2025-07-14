@@ -197,7 +197,7 @@ Each line represents:
 
 ## BAM_finalize_2.py
 
-### Part 1: Create modified `genome_results.txt`
+### Part 1: Creates a  modified version of `genome_results.txt`
 
 Merges information from:
 
