@@ -307,7 +307,7 @@ The mean coverage is then computed by dividing the total number of mapped bases 
 For EGA this information was not meant to be shared, but feel free to add them to your report if you want. You can do it by just deleting the first two lines of the `multiqc_config.yaml` file. 
 ### Source code modifications
 
-*Manually removed:
+* Manually removed:
  * Percentage toggle button in `homopolymer indels`. MultiQC was not calculating it correctly. 
  * Number of samples label in BAR plots. (The number of samples was incorrect, e.g. in the graphic `Mapped Reads Nucleotide Content` the label was 5, referring to the number of different nucleotides. 
  * Qualimap's module action of picking `genome_results.txt`file. If Qualimap picked it, custom module tablemaker could not parse it again.  
