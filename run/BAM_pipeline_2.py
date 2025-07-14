@@ -204,10 +204,10 @@ def main():
     header_output_file = os.path.join(output_dir, "bam_header_info.txt")
     parse_bam_header(bam_file, header_output_file)
 
-    run_command(f"qualimap bamqc -bam {bam_file} -c --outdir {output_dir} --java-mem-size=16G")
+    run_command(f" qualiamp_v2.3/ bamqc -bam {bam_file} -c --outdir {output_dir} --java-mem-size=16G")
     run_command(f"read_distribution.py -i {bam_file} -r {bed_file} > {output_dir}/read_distribution.txt")
-    run_command(f"java -jar picard.jar  CollectAlignmentSummaryMetrics           R= {fasta_file}           I= {bam_file}          O= {output_dir}/picard_output.txt")
-    run_command(f"java -jar picard.jar CollectQualityYieldMetrics I= {bam_file} O= {output_dir}/collect_bases_metrics.txt")
+    run_command(f"java -jar qualimap_v2.3/lib/picard-1.70.jar  CollectAlignmentSummaryMetrics           R= {fasta_file}           I= {bam_file}          O= {output_dir}/picard_output.txt")
+    run_command(f"java -jar qualimap_v2.3/lib/picard-1.70.jar CollectQualityYieldMetrics I= {bam_file} O= {output_dir}/collect_bases_metrics.txt")
 
     window_cov = 3_000_000
     cov_output_file = os.path.join(output_dir, f"coverage_median_{window_cov // 1_000_000}Mb_complete.json")
