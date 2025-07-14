@@ -309,6 +309,6 @@ For EGA this information was not meant to be shared, but feel free to add them t
 ### Source code modifications
 
 * Manually removed:
- * Percentage toggle button in `homopolymer indels`. MultiQC was not calculating it correctly. 
- * Number of samples label in BAR plots. (The number of samples was incorrect, e.g. in the graphic `Mapped Reads Nucleotide Content` the label was 5, referring to the number of different nucleotides. 
- * Qualimap's module action of picking `genome_results.txt`file. If Qualimap picked it, custom module tablemaker could not parse it again.  
+   * Percentage toggle button in `homopolymer indels`. MultiQC was not calculating it correctly. 
+   * Number of samples label in BAR plots. (The number of samples was incorrect, e.g. in the graphic `Mapped Reads Nucleotide Content` the label was 5, referring to the number of different nucleotides. 
+   * Qualimap's module action of picking `genome_results.txt`file. If Qualimap picked it, custom module tablemaker could not parse it again.  
