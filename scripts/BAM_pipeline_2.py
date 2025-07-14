@@ -163,7 +163,7 @@ def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_
         chrom = get_chrom(global_start)
         relative_start = global_start
         counter = coverage_by_window.get(global_start, Counter())
-        cov_value = calculate_stat_from_counter(counter, mode) if counter else 0.0
+        cov_value = calculate_stat_from_counter(counter) if counter else 0.0
         result.append([chrom, relative_start, cov_value])
 
     if chrM_coverages:
@@ -182,7 +182,6 @@ def main():
     parser = argparse.ArgumentParser(description="Análisis de archivos BAM o CRAM con herramientas bioinformáticas.")
     parser.add_argument("--bam", required=True, help="Archivo BAM o CRAM de entrada")
     parser.add_argument("--bed", required=True, help="Archivo BED necesario para algunas herramientas")
-    parser.add_argument("--mode", choices=["mean", "median"], default="mean", help="Modo de cálculo: media o mediana")
     parser.add_argument("--fasta", required= True, help="Archivo FASTA")
     args = parser.parse_args()
 
