@@ -43,8 +43,8 @@ Before starting, make sure you have the following:
 Clone the customized MultiQC repository:
 
 ```bash
-git clone (AÑADIR LINK)
-cd MultiQC-fork
+
+cd MultiQC-EGA
 pip install -e .
 ```
 
