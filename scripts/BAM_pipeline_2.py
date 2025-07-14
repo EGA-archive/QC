@@ -76,13 +76,13 @@ def parse_bam_header(bam_file, output_file):
         f.write(f"Tools\t{' | '.join(data['Tools'])}\n")
     print(f"Header info saved to {output_file}")
 
-def calculate_stat_from_counter(counter, mode="mean"):
+def calculate_stat_from_counter(counter):
     values = []
     for cov, freq in counter.items():
         values.extend([cov] * freq)
     if not values:
         return 0.0
-    return round(statistics.mean(values), 2) if mode == "mean" else round(statistics.median(values), 2)
+    return round(statistics.median(values), 2)
 
 def calculate_coverage_stat_streaming(bam_file, window_size, output_file, alias_json_path="chrnames.json"):
     with open(alias_json_path, "r") as f:
