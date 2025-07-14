@@ -71,7 +71,7 @@ You will end up having:
 
 ### Step 1: Run `BAM_pipeline_2.py`
 
-It is located in the run folder in this repository. 
+It is located in `run/` in this repository. 
 
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
@@ -90,13 +90,18 @@ This script will:
 
 ### Step 2: Post-process with `BAM_finalize_2.py`
 
-Run it in the same folder where `bam_analysis_results/` was generated:
+Access `output/`:
+
+```bash
+cd ../output
+```
+Execute the `BAM_finalize_2.py` pipeline, this step will permanently modify the Qualimap output: 
 
 ```bash
 ./BAM_finalize_2.py
 ```
 
-> This script modifies `genome_results.txt` and files inside `raw_data_qualimapReport/`.
+> This script modifies `genome_results.txt`, `picard_output.txt`, `collect_bases_metrics.txt` and files inside `raw_data_qualimapReport/`.
 >
 > If you'd like to preserve the original Qualimap files, create a backup folder (e.g. `Qualimap/`) and move them there before running this step.
 
@@ -104,12 +109,7 @@ Run it in the same folder where `bam_analysis_results/` was generated:
 
 ### Step 3: Generate the MultiQC Report
 
-Make sure your working directory contains:
-
-* `bam_analysis_results/` (with all generated files inside)
-* `multiqc_config.yaml` (in the same directory, not inside `bam_analysis_results/`)
-
-Then run:
+In the same folder as the previous step, `output/`, run:
 
 ```bash
 multiqc . -c multiqc_config.yaml -e picard -e qualimap --force
