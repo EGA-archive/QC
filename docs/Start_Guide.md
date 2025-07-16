@@ -128,7 +128,7 @@ In the same folder as the previous step, `output/`, run:
 multiqc . -c multiqc_config.yaml -e picard -e qualimap --force
 ```
 
-This will generate a customized, interactive MultiQC report summarizing all your QC results.
+Congratulations, you finished! This will generate a customized, interactive MultiQC report summarizing all your QC results `multiqc_report.html`.
 
 ---
 
