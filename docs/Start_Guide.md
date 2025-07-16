@@ -85,7 +85,7 @@ And then you can run the pipeline:
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
 ```
-
+Attention: This pipeline will set your 
 This script will:
 
 * Convert CRAM to BAM (if needed)
