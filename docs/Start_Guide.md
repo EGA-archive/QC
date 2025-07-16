@@ -15,7 +15,7 @@ Before starting, make sure you have the following:
 ### Programming language 
 * python3
 
-
+---
 
 ## 2. Installing required tools and libraries
 
@@ -23,22 +23,21 @@ Before starting, make sure you have the following:
 
 If you do not know how to, you can click [here](https://docs.github.com/es/get-started/start-your-journey/downloading-files-from-github) and check GitHub documentation. 
 
-### Step 2: Enter run folder
 
-Now you can start working on your terminal, entering the run folder. 
-
-```bash
-cd BAM_QC/run/
-```
-
-### Step 3: Install libraries, RSeQC and MULTIQC-EGA 
+### Step 2: Install libraries, RSeQC and MULTIQC-EGA 
 
 ```bash
 pip install -r requirements.txt
 ```
 You're now half way to start running our pipeline!
 
----
+### Step 3: Enter run folder
+
+Now you can start working on your terminal, entering the run folder. 
+
+```bash
+cd BAM_QC/run/
+```
 ### Step 4: Install samtools 
 
 This is not a python tool, so we could not include it in the requirements.txt file, and we could not include it in this repository wither, so you need to manage it by yourself, but it should be easy, you are almost there.
@@ -65,7 +64,7 @@ You will end up having:
 * re
 * pandas
 * warnings
-  
+---
 ## 3. Running the Pipeline
 
 ### Step 1: Run `BAM_pipeline_2.py`
