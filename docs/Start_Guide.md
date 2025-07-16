@@ -28,7 +28,7 @@ If you do not know how to, you can click [here](https://docs.github.com/es/get-s
 Now you can start working on your terminal, entering the run folder. 
 
 ```bash
-cd run/
+cd BAM_QC/run/
 ```
 
 ### Step 3: Install libraries, RSeQC and MULTIQC-EGA 
