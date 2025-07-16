@@ -27,6 +27,7 @@ If you do not know how to, you can click [here](https://docs.github.com/es/get-s
 ### Step 2: Install libraries, RSeQC and MULTIQC-EGA 
 
 ```bash
+cd BAM_QC
 pip install -r requirements.txt
 ```
 You're now half way to start running our pipeline!
@@ -36,7 +37,7 @@ You're now half way to start running our pipeline!
 Now you can start working on your terminal, entering the run folder. 
 
 ```bash
-cd BAM_QC/run/
+cd run/
 ```
 ### Step 4: Install samtools 
 
