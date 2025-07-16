@@ -71,13 +71,17 @@ You will end up having:
 ### Step 1: Run `BAM_pipeline_2.py`
 
 It is located in `run/` in this repository. 
-Maybe you need to give permission to the file to be executed. If that's the case, run: 
+You may need to give permission to the file to be executed. If that's the case, run: 
 
 ```bash
 chmod +x BAM_pipeline_2.py
 ```
-And then run the pipeline:
+Then give permission to Qualimap by running: 
 
+```bash
+chmod +x qualimap_v2.3/qualimap
+```
+And then you can run the pipeline: 
 ```bash
 ./BAM_pipeline_2.py --bam <your_input.bam_or_cram> --bed <annotations.bed> --fasta <reference.fa>
 ```
