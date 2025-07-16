@@ -222,4 +222,4 @@ for filename in files_to_keep:
 
     except Exception as e:
         print(f"[ERROR] Error processing {new_filename}: {e}")
-print(f"[INFO] All processing complete! {input_file
+print(f"[INFO] All processing complete!")
