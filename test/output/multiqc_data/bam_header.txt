@@ -1,0 +1,2 @@
+Sample	Version	Sort Order	Platform	Genome Assembly Identifier	Tools
+HG00096	1.0	coordinate	ILLUMINA	N/A	GenomeAnalysisTK | bam_calculate_bq | bam_count_covariates | bam_mark_duplicates | bam_merge | bam_merge.1 | bam_realignment_around_known_indels | bam_recalibrate_quality_scores | bwa | bwa_aln_fastq | bwa_index | bwa_sam | gatk_target_interval_creator | picard | sam_to_fixed_bam | samtools
