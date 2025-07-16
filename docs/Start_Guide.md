@@ -104,7 +104,7 @@ Access `output/`:
 ```bash
 cd ../output
 ```
-Execute the `BAM_finalize_2.py` pipeline, this step will permanently modify the Qualimap output: 
+Execute the `BAM_finalize_2.py` pipeline, you may need to give permission to the file as before. This step will permanently modify the Qualimap output: 
 
 ```bash
 ./BAM_finalize_2.py
