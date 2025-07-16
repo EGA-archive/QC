@@ -1,0 +1,7 @@
+Label	Number of Indels
+polyA	18731
+polyC	5496
+polyG	5919
+polyT	18386
+polyN	1
+Non-poly	65351
