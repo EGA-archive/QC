@@ -16,7 +16,6 @@ Before starting, make sure you have the following:
 * python3
 
 
----
 
 ## 2. Installing required tools and libraries
 
