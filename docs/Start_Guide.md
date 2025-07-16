@@ -21,7 +21,7 @@ Before starting, make sure you have the following:
 
 ### Step 1: Download this repository to your computer.
 
-https://docs.github.com/es/get-started/start-your-journey/downloading-files-from-github
+If you do not know how to, click [here](https://docs.github.com/es/get-started/start-your-journey/downloading-files-from-github)
 
 ### Step 2: Enter run folder
 
