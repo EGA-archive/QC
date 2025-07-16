@@ -1,2 +1,0 @@
-Module	Section	Sample Name	Source
-RSeQC	read_distribution	read_distribution	/bamqc/BAM_QC/output/read_distribution.txt
