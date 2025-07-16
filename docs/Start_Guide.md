@@ -3,7 +3,7 @@
 ## 1. Requirements
 
 Before starting, make sure you have the following:
-# Files
+### Files
 
 * A BAM or CRAM file (of course!)
 * A FASTA reference file that matches the reference assembly of the BAM/CRAM
@@ -12,7 +12,7 @@ Before starting, make sure you have the following:
 * `multiqc_config.yaml` (also in placed). Needed for generating the MultiQC report.
 
 
-# Programming language 
+### Programming language 
 * python3
 
 
