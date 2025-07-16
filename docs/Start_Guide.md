@@ -42,9 +42,13 @@ cd run/
 ### Step 4: Install samtools 
 
 This is not a python tool, so we could not include it in the requirements.txt file, and we could not include it in this repository wither, so you need to manage it by yourself, but it should be easy, you are almost there.
-Follow the tool documentation: https://github.com/samtools/samtools?tab=readme-ov-file
+Follow the [tool documentation](https://github.com/samtools/samtools?tab=readme-ov-file).
 
-You will end up having: 
+### Step 5: Install picard
+
+Click on this [link](https://github.com/broadinstitute/picard/releases/download/3.4.0/picard.jar) and the download will start. If you already have it, and you do not want to download it again, please place the picard.jar file in this folder. If you do not want to, you can modify BAM_pipeline_2.py, with the relative path of your picard.jar file. 
+
+Eventually, You will end up having: 
 
 # Tools
 * MultiQC-EGA (custom fork of MultiQC adapted for this pipeline, included in the requirements.txt).
