@@ -1,0 +1,7 @@
+Sample	Number of Indels
+Non-poly	65351.0
+polyA	18731.0
+polyC	5496.0
+polyG	5919.0
+polyN	1.0
+polyT	18386.0

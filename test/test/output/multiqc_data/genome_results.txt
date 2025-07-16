@@ -1,0 +1,2 @@
+Sample	File name	Number of reads	Number of mapped reads	Number of mapped paired reads (both in pair)	Number of mapped paired reads (singletons)	Median insert size	Mean mapping quality	% GC	General error rate	Mean coverage	Std coverage	% Duplicated reads	% Chimeras	PF Q30 bases	Total bases
+HG00096	HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam	6,412,020	6,396,581	6,358,321	15,439	182	2.1312	40.94	0.0033	0.1959	1.0708	1.38	0.1813	567431842	641202000

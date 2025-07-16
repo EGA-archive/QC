@@ -1,0 +1,2 @@
+Sample	CDS_Exons	5'UTR_Exons	3'UTR_Exons	Introns	TSS_up_1kb	TSS_up_1kb-5kb	TSS_up_5kb-10kb	TES_down_1kb	TES_down_1kb-5kb	TES_down_5kb-10kb	Other_intergenic
+read_distribution	96939.0	133634.0	211073.0	4212795.0	36035.0	125132.0	122452.0	42024.0	136094.0	130264.0	1172214.0
