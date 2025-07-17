@@ -10,7 +10,7 @@ If you'd like to use these pipelines, please follow the [Start Guide](https://gi
 
 ### Example: BAM file from the 1000 Genomes Project
 
-To illustrate the pipeline, we ran it on a small BAM file from the 1000 Genomes Project.  
+To illustrate the pipeline, we ran it on a small BAM file (Note: The BAM file contains alignments exclusively from chromosome 11) from the 1000 Genomes Project.  
 You can download the input file [here](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam), and you can review the resulting [output folder](test/output).  
 It matches the structure and content you should expect if you follow the steps in the guide.
 
