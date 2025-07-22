@@ -1,3 +1,4 @@
+### Execution of `BAM_pipeline_2.py` on WGS data
 We executed the `BAM_pipeline_2.py` script on a whole-genome sequencing (WGS) BAM file (**175G**) from the 1000 Genomes Project dataset. If you want to download it 
 click [here](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/high_coverage_alignment/HG00096.wgs.ILLUMINA.bwa.GBR.high_cov_pcr_free.20140203.bam). Using a virtual machine configured with:
 
