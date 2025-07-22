@@ -50,13 +50,13 @@ This function transforms that dictionary into a list of values repeated accordin
 This function divides the genome into fixed-size intervals (e.g., 3 million base pairs).  
 For each interval or window, it calculates the **median** of the coverage observed in that segment.
 
-### 📌 How does it work?
+### How does it work?
 
 The main idea is to **summarize BAM coverage** in fixed-size blocks, called **windows**, along the genome. In this case, each window spans 3,000,000 base pairs.
 
 ---
 
-### 🔹 Step by step
+### Step by step
 
 #### 1. Read line by line with `samtools depth`
 
@@ -119,7 +119,7 @@ coverage_by_window[3000000] = Counter({0: 2, 1: 2, 2: 1})
 
 ---
 
-### 🔁 How is all that summarized?
+### How is all that summarized?
 
 Once all `Counter`s are built per window, a single representative value per window is computed: **median** coverage.
 
@@ -140,7 +140,7 @@ This value is linked to the window in the final result.
 
 ---
 
-## 🔢 What is a global position?
+## What is a global position?
 
 The idea is to represent genome coverage as if it were a **single continuous line**. Each position must have a unique value indicating its place in this “concatenated genome”.
 
@@ -155,7 +155,7 @@ It’s a practical way to treat the genome as a single sequence.
 
 ---
 
-## 🔀 Chromosome name handling
+## Chromosome name handling
 
 A significant part of the script is dedicated to managing the various formats of chromosome names found in BAM files (e.g., `1` vs `chr1`, `MT` vs `chrM`, etc.).  
 
@@ -165,7 +165,7 @@ If a BAM file has unknown names, the script simply uses the header names and inc
 
 ---
 
-## ⚠️ Special treatment of `chrM`
+## Special treatment of `chrM`
 
 The mitochondrial chromosome (`chrM`) is very small (e.g., 16,569 bp), so it’s **not grouped into windows**.  
 
@@ -173,7 +173,7 @@ Instead, a **single coverage value** (median) is computed for it and placed at t
 
 ---
 
-## 🧾 Final output
+## Final output
 
 The output is a `.json` file with the following format:
 
