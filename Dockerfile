@@ -14,8 +14,9 @@ WORKDIR /app
 # Copy the entire project into the container
 COPY . /app
 
-# Ensure the Qualimap binary is executable (already present in run/)
+# Ensure the Qualimap binary and scripts are executable (already present in run/ and output/)
 RUN chmod +x run/qualimap
+RUN chmod +x run/BAM_pipeline_2.py output/BAM_finalize_2.py
 
 # Install Python dependencies (including your custom MultiQC)
 RUN pip install --no-cache-dir -r requirements.txt
