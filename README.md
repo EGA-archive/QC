@@ -30,6 +30,18 @@ From the root of the repository:
 docker build -t bam-qc .
 ```
 
+> **Important:** Make sure the following files have execution permissions *before building* the image:
+>
+> - `run/qualimap_v2.3/qualimap`
+> - `run/BAM_pipeline_2.py`
+> - `output/BAM_finalize_2.py`
+> - `run/wrapper.py`
+>
+> If not, set them manually using:
+>
+> ```bash
+> chmod +x run/qualimap_v2.3/qualimap run/BAM_pipeline_2.py output/BAM_finalize_2.py run/wrapper.py
+> ```
 ### 2. Run the pipeline
 
 If your BAM, BED and FASTA files are located in `/absolute/path/to/`, run the container like this:
