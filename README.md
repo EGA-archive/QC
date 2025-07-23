@@ -32,23 +32,24 @@ docker build -t bam-qc .
 
 ### 2. Run the pipeline
 
-If your BAM file is located at `/absolute/path/to/muestra1.bam`, run the container like this:
+If your BAM, BED and FASTA files are located in `/absolute/path/to/`, run the container like this:
 
 ```bash
 docker run --rm \
   -v /absolute/path/to:/data \
   -v $(pwd)/output:/app/output \
-  bam-qc /data/muestra1.bam
+  bam-qc \
+  --bam /data/muestra1.bam \
+  --bed /data/regions.bed \
+  --fasta /data/reference.fasta
 ```
 
 This command:
 
-- Mounts your local folder containing the BAM file as `/data` inside the container
+- Mounts your local folder containing the input files as `/data` inside the container
 - Mounts the repository's `output/` directory (already created as `BAM_QC/output/`) to store the results
+- Passes the required arguments (`--bam`, `--bed`, `--fasta`) to the pipeline
 - Executes the full QC workflow and generates a `multiqc_report.html` in the `output/` folder
-
-You can open the HTML report with any web browser.
-
 
 ---
 
