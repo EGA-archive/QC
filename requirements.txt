@@ -24,8 +24,8 @@ mdurl==0.1.2
 -e git+https://github.com/EGA-archive/BAM_QC.git@b31729044a68c53e5e02b6be6322da41f838614c#egg=multiqc&subdirectory=MultiQC-EGA
 narwhals==1.46.0
 natsort==8.4.0
-networkx==3.5
-numpy==2.3.1
+networkx==3.4
+numpy==2.2.6
 packaging==25.0
 pandas==2.3.1
 pillow==11.3.0
