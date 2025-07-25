@@ -71,7 +71,7 @@ To create the report please run inside the `output/` folder:
 ```bash
 multiqc . -e picard -e qualimap -c multiqc_config.yaml 
 ```
-
+You're done! Check the results in the `multiqc_report.html` file.
 ## Benchmarking on other file types
 
 We know the test file is relatively small, so we also evaluated the pipeline on:
