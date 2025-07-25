@@ -33,15 +33,6 @@ def main():
     # Step 2: Format outputs for MultiQC
     subprocess.run(["python", "output/BAM_finalize_2.py"], check=True)
 
-    # Step 3: Run MultiQC with your custom config
-    subprocess.run([
-        "multiqc", ".", 
-        "-e", "qualimap", 
-        "-e", "picard", 
-        "-c", "output/multiqc_config.yaml"
-    ], check=True)
-
-    print("✅ QC analysis complete. See 'output/multiqc_report.html' for results.")
 
 if __name__ == "__main__":
     main()
