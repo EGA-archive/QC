@@ -18,9 +18,9 @@ def main():
             print(f"Error: {label} file '{path}' not found.")
             sys.exit(1)
 
-    print(f"📥 BAM: {bam}")
-    print(f"📄 BED: {bed}")
-    print(f"🧬 FASTA: {fasta}")
+    print(f"BAM: {bam}")
+    print(f"BED: {bed}")
+    print(f"FASTA: {fasta}")
 
     # Step 1: Run the main pipeline
     subprocess.run([
