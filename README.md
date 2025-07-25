@@ -64,6 +64,13 @@ This command:
 - Executes the full QC workflow and generates a `multiqc_report.html` in the `output/` folder
 
 ---
+### 3. Run multiQC 
+
+To create the report please run inside the `output/` folder:
+
+```bash
+multiqc . -e picard -e qualimap -c multiqc_config.yaml 
+```
 
 ## Benchmarking on other file types
 
