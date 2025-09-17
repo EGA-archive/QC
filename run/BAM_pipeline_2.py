@@ -189,7 +189,6 @@ def main():
     bed_file = os.path.abspath(args.bed)
     fasta_file=os.path.abspath(args.fasta)
 
-    # Si el archivo es .cram, conviértelo a .bam
     if input_path.endswith(".cram"):
         bam_file = convert_cram_to_bam(input_path)
     elif input_path.endswith(".bam"):
