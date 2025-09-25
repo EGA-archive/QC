@@ -7,7 +7,7 @@ The **European Genome-phenome Archive (EGA)** provides automated quality control
 
 ---
 
-## 📂 Available QC Pipelines
+## Available QC Pipelines
 
 - **BAM/CRAM QC** → Quality assessment for aligned read files (BAM/CRAM)
 - **VCF QC** → Quality assessment for variant call files (VCF/VCF.GZ)
@@ -16,7 +16,7 @@ Each pipeline comes with example datasets, performance notes, and documentation.
 
 ---
 
-## 🧬 BAM/CRAM QC
+## BAM/CRAM QC
 
 To improve the quality reports we generate for each of these files, we have developed a set of pipelines that automate the use of multiple bioinformatics tools for comprehensive quality assessment.
 
@@ -98,7 +98,7 @@ You can check the runtime performance and resource usage in the [`test/performan
 
 ---
 
-## 🧩 VCF QC
+## VCF QC
 
 The European Genome-phenome Archive (EGA) stores thousands of VCF files, which encode genetic variation data across samples and studies.
 
