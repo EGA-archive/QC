@@ -112,12 +112,12 @@ If you'd like to use this pipeline, please follow the **[Start Guide](https://gi
 
 We also ran the VCF QC pipeline on a file from the 1000 Genomes Project:
 
-- **[Download input VCF](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz)**
-- **[View output folder](https://github.com/EGA-archive/QC/tree/main/VCF_QC/test/output)**
+- **[Download input VCF](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz)**.
+- **[View output folder](https://github.com/EGA-archive/QC/tree/main/VCF_QC/test/output)**.
 
 Runtime and memory usage details are included in the corresponding performance log **[here](VCF_QC/test/performance_log.md)**.
 
-🔗 **[VCF file format specification](https://samtools.github.io/hts-specs/VCFv4.3.pdf)**
+🔗 **[VCF file format specification](https://samtools.github.io/hts-specs/VCFv4.3.pdf)**.
 
 ---
 
