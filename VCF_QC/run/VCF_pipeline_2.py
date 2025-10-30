@@ -54,7 +54,7 @@ def main():
     except subprocess.CalledProcessError:
         print("[ERROR] Failed to index the VCF.")
 
-    # Step 2: Extract 1000 random rsID SNPs using zcat or cat
+    # Step 2: Extract 1000 random rsID SNPs 
     print("[2] Extracting 1000 random rsID SNPs...")
     try:
         cmd = f"{vcf_cat} | cut -f1,2,3 | awk '$3 ~ /rs/' | shuf -n 1000 > {random_snps_file}"
@@ -71,7 +71,7 @@ def main():
         print("[ERROR] Failed to extract sample list.")
 
 
-    # Step 4: Unique chromosomes
+    # Step 4: Chromosomes
     print("[4] Extracting unique chromosomes...")
     try:
         subprocess.run(f"bcftools query -f '%CHROM\\n' {vcf_path} | uniq > {chrom_list_file}", shell=True, check=True)
