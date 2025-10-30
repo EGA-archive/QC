@@ -20,8 +20,14 @@ def main():
     elif vcf_path.endswith(".vcf"):
         base = os.path.basename(vcf_path).replace(".vcf", "")
         vcf_cat = f"cat {vcf_path}"
+    elif vcf_path.endswith(".bcf"):
+        base = os.path.basename(vcf_path).replace(".vcf", "")
+        vcf_cat = f"cat {vcf_path}"
+    elif vcf_path.endswith(".bcf.gz"):
+        base = os.path.basename(vcf_path).replace(".vcf", "")
+        vcf_cat = f"cat {vcf_path}"
     else:
-        print("[ERROR] Input file must end in .vcf or .vcf.gz")
+        print("[ERROR] Input file must end in .vcf, .bcf, .vcf.gz or bcf.gz")
         sys.exit(1)
 
     # Output folder: one level above script, in ../output
