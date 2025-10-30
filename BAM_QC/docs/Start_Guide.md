@@ -55,7 +55,7 @@ Eventually, You will end up having:
 * RSeQC (included in requirements.txt)
 * Qualimap (included in this repository)
 * samtools (downloaded by the user)
-* Picard (included inside Qualimap folder in this repository)
+* Picard (downloaded by the user)
   
 # Libraries (included in requirements.txt)
 * subprocess
