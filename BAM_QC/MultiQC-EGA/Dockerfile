@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12.16-slim
 
 LABEL author="Phil Ewels & Vlad Savelyev" \
       description="MultiQC" \
@@ -32,7 +32,9 @@ RUN \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean -y && \
     echo "Docker build log: Upgrade pip and install multiqc" 1>&2 && \
-    pip install --quiet --upgrade pip && \
+    python -m pip install --quiet \
+        "pip @ https://files.pythonhosted.org/packages/3f/06/3e4420302363fbb71be3c7f35ce042f54bfca330e3e66b3a2e3c4cca579f/pip-26.2.2-py3-none-any.whl#sha256=fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70" && \
+    python -m pip install --no-cache-dir "certifi>=2026.10.19" && \
     #################
     # Install MultiQC
     pip install --verbose --no-cache-dir /usr/src/multiqc && \
